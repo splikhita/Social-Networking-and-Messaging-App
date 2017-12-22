@@ -1,0 +1,30 @@
+More on NodeJS
+
+Section 2, Lecture 14
+
+
+
+
+
+This Course if of course not mainly about NodeJS. So if you want to dive deeper into it, the following Resources should be helpful.
+
+Official NodeJS Page (also dive into the Docs there!): https://nodejs.org/en/
+
+An Absolute Beginner Guide to NodeJS: http://stackabuse.com/learn-node-js-a-beginners-guide/
+
+Official ExpressJS Page (check out the "Getting Started" and other Guide there!): http://expressjs.com/
+
+Creating a Basic NodeJS + ExpressJS App from Scratch: https://shapeshed.com/creating-a-basic-site-with-node-and-express/
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+More on MongoDB
+
+If you want to learn more about MongoDB and Mongoose, the following Links should be helpful:
+
+Official MongoDB Page: https://www.mongodb.com/
+
+Setup Instructions on Official Page (choose your OS): https://docs.mongodb.com/manual/administration/install-community/
+
+Mongoose Docs: http://mongoosejs.com/docs/guide.html
+
