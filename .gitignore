@@ -2,5 +2,4 @@
 /.idea
 /typings
 /public/js/
-/package-lock.json/
 npm-debug.log
