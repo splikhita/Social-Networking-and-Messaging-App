@@ -2,10 +2,6 @@ More on NodeJS
 
 Section 2, Lecture 14
 
-
-
-
-
 This Course if of course not mainly about NodeJS. So if you want to dive deeper into it, the following Resources should be helpful.
 
 Official NodeJS Page (also dive into the Docs there!): https://nodejs.org/en/
@@ -20,6 +16,8 @@ Creating a Basic NodeJS + ExpressJS App from Scratch: https://shapeshed.com/crea
 
 More on MongoDB
 
+Section 3, Lecture 25
+
 If you want to learn more about MongoDB and Mongoose, the following Links should be helpful:
 
 Official MongoDB Page: https://www.mongodb.com/
@@ -27,4 +25,131 @@ Official MongoDB Page: https://www.mongodb.com/
 Setup Instructions on Official Page (choose your OS): https://docs.mongodb.com/manual/administration/install-community/
 
 Mongoose Docs: http://mongoosejs.com/docs/guide.html
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+More Information on JWT
+
+Section 6, Lecture 74
+
+Do you want to dive deeper into the idea behind JWTs?
+
+Here are some resources, you may find helpful:
+
+https://auth0.com/learn/json-web-tokens/
+
+https://scotch.io/tutorials/the-anatomy-of-a-json-web-token
+
+https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Fixing a Mongoose Bug
+
+Section 6, Lecture 79
+
+Depending on the Mongoose version you installed, you may encounter a "RangeError: Maximum Call Stack Size Exceeded" error in the next lecture(s). If you don't everything is fine and you don't need to adjust anything.
+
+If you do, it seems that the solution shared by a fellow student - Hector - fixes the issue (see below). You can find the full Q&A thread where the issue is discussed here: https://www.udemy.com/angular-2-and-nodejs-the-practical-guide/learn/v4/questions/2813134
+
+The solution is to adjust the code in the places marked with "Change here":
+
+Solution by Student Hector
+
+-------
+
+Hi all, I got stuck at this same part as well --  however, I think I got something working now!
+
+I made the following minor changes, in the routes/messages.js when the message is created I reference the userId instead of  user object.  in the model/message.js pull the message._id, instead of the message.  I checked the database and the user is correctly referenced via the ObjectID.  Below is the code:
+
+In the models/message.js: 
+1 var mongoose = require('mongoose');
+2 var Schema = mongoose.Schema;
+3  
+4 var User = require('./user');
+5  
+6 var schema = new Schema({
+7     content: {type: String, required: true},
+8     user: {type: Schema.Types.ObjectId, ref: 'User'}
+9 });
+10  
+11 schema.post('remove', function(message) {
+12     User.findById(message.user, function (err, user) {
+13         user.messages.pull(message._id); //CHANGE HERE
+14         user.save();
+15     });
+16 });
+17  
+18 module.exports = mongoose.model('Message', schema);
+
+
+In the route/messages.js:
+1 router.post('/', function (req, res, next) {
+2     const decoded = jwt.decode(req.query.token);
+3     User.findById(decoded.user._id, (err, user) => {
+4         if(err) {
+5             return res.status(500).json({
+6                 title: 'An error occurred',
+7                 error: err
+8             });
+9         }
+10         const message = new Message({
+11             content: req.body.content,
+12             user: user._id //CHANGE HERE
+13         });
+14  
+15         message.save(function(err, result) {
+16             if(err) {
+17                 return res.status(500).json({
+18                     title: 'An error occurred',
+19                     error: err
+20                 });
+21             }
+22  
+23             user.messages.push(result);
+24             result.user = user; // Added this as the username doesn't appear for messages on the web page
+25             res.status(201).json({
+26                 message: 'Saved message',
+27                 obj: result
+28             });
+29             user.save();
+30  
+31         });
+32     });
+33 });
+
+
+I hope this works for others, cheers!
+
+Hector
+
+Code above reflects the edits mentioned below. 
+
+***An edit
+
+To get the delete function to properly update the messages array in the User model, you will need to update schema.post call in models/message.js, see above.  Make sure to drop all messages before trying this out.
+
+***Another edit
+
+Keep the ref in the messages model.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+More on Angular 2 Modules
+
+Section 8, Lecture 95
+
+You want to dive super-deep into Angular 2 Modules? Here you go: https://angular.io/docs/ts/latest/guide/ngmodule.html
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ 
+
+
+       
+
+
+
+
 

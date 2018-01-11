@@ -12,6 +12,7 @@ var userRoutes = require('./routes/users')
 
 var app = express();
 mongoose.connect('db-user:dbuser@ds163656.mlab.com:63656/db-node');
+//mongoose.connect('localhost:27017/db-node');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

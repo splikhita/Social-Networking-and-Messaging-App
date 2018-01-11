@@ -13,7 +13,7 @@ export class AuthService {
     signup(user: User) {
         const body = JSON.stringify(user);
         const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('http://messenger-app-angular2-nodejs.herokuapp.com/user', body, {headers: headers})
+        return this.http.post('http://angular2nodejs-env.b4pqxc2ub4.us-east-1.elasticbeanstalk.com/user', body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -24,7 +24,7 @@ export class AuthService {
     signin(user: User) {
         const body = JSON.stringify(user);
         const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('http://messenger-app-angular2-nodejs.herokuapp.com/user/signin', body, {headers: headers})
+        return this.http.post('http://angular2nodejs-env.b4pqxc2ub4.us-east-1.elasticbeanstalk.com/user/signin', body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

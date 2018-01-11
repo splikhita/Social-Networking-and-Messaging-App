@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
 
 var User = require('../mongoose-models/user');
 var Message = require('../mongoose-models/message');
@@ -45,7 +46,7 @@ router.post('/', function (req, res, next) {
         }
         var message = new Message({
             content: req.body.content,
-            user: user
+            user: user._id
         });
         message.save(function(err, result) {
             if (err) {
@@ -56,6 +57,7 @@ router.post('/', function (req, res, next) {
             }
             user.messages.push(result);
             user.save();
+            result.user = user;
             res.status(201).json({
                 message: 'Saved message',
                 obj: result

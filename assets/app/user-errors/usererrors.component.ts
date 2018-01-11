@@ -3,7 +3,7 @@ import {Error} from "./usererrors.model";
 import {ErrorService} from "./usererrors.service";
 
 @Component({
-   selector: 'app-error',
+    selector: 'app-error',
     templateUrl: './usererrors.component.html',
     styles: [`
         .backdrop {
@@ -14,7 +14,7 @@ import {ErrorService} from "./usererrors.service";
             width: 100%;
             height: 100vh;
         }        
-`]
+    `]
 })
 export class ErrorComponent implements OnInit {
     error: Error;
